@@ -1,30 +1,27 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, watchEffect  } from 'vue';
+import Header from './components/Header.vue';
+import MainContent from './components/MainContent.vue';
+
+const isDark = ref(localStorage.getItem('theme') === 'dark')
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+}
+
+watchEffect(() => {
+  document.documentElement.classList.toggle('dark', isDark.value)
+})
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div :class="isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'"
+       class="min-h-screen transition-colors duration-300">
+    <Header :isDark="isDark" @toggleTheme="toggleTheme" />
+    <main class="p-4 container mx-auto">
+      <MainContent />
+    </main>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

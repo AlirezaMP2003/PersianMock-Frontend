@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+html {
+    direction: rtl;
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+body {
+    background-color: theme('colors.gray.50');
+}
