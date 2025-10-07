@@ -42,16 +42,16 @@ const emit = defineEmits(['close', 'addField'])
 const search = ref('')
 
 const availableFields = [
-  { name: 'first_name', type: 'نام', table_name: 'first_name' },
-  { name: 'last_name', type: 'نام خانوادگی', table_name: 'last_name' },
+  { name: 'firstname', type: 'نام', table_name: 'first_name' },
+  { name: 'lastname', type: 'نام خانوادگی', table_name: 'last_name' },
   { name: 'email', type: 'ایمیل', table_name: 'email' },
   { name: 'username', type: 'نام کاربری', table_name: 'username' },
   { name: 'password', type: 'رمز عبور', table_name: 'password' },
   { name: 'gender', type: 'جنسیت', table_name: 'gender' },
-  { name: 'city', type: 'شهر', table_name: 'city' },
-  { name: 'country', type: 'کشور', table_name: 'country' },
-  { name: 'car', type: 'خودرو', table_name: 'car' },
-  { name: 'animal', type: 'حیوان', table_name: 'animal' },
+  // { name: 'city', type: 'شهر', table_name: 'city' },
+  // { name: 'country', type: 'کشور', table_name: 'country' },
+  // { name: 'car', type: 'خودرو', table_name: 'car' },
+  // { name: 'animal', type: 'حیوان', table_name: 'animal' },
 ]
 
 const filteredFields = computed(() =>
