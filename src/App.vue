@@ -1,18 +1,18 @@
 <script setup>
-import { ref, watchEffect  } from 'vue';
-import Header from './components/Header.vue';
-import MainContent from './components/MainContent.vue';
+  import { ref, watchEffect  } from 'vue';
+  import Header from './components/Header.vue';
+  import MainContent from './components/MainContent.vue';
 
-const isDark = ref(localStorage.getItem('theme') === 'dark')
+  const isDark = ref(localStorage.getItem('theme') === 'dark')
 
-const toggleTheme = () => {
-  isDark.value = !isDark.value
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
-}
+  const toggleTheme = () => {
+    isDark.value = !isDark.value
+    localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+  }
 
-watchEffect(() => {
-  document.documentElement.classList.toggle('dark', isDark.value)
-})
+  watchEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark.value)
+  })
 
 </script>
 
