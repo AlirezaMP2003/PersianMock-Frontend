@@ -1,42 +1,54 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
+
+const props = defineProps({
+  fieldTypes: {
+    type: Array,
+    required: true,
+  },
+})
 
 const emit = defineEmits(['close', 'addField'])
 
 const search = ref('')
 
-const availableFields = [
-  { name: 'id', label: 'ID' },
-  { name: 'firstname', label: 'First Name' },
-  { name: 'lastname', label: 'Last Name' },
-  { name: 'email', label: 'Email Address' },
-  { name: 'username', label: 'Username' },
-  { name: 'password', label: 'Password' },
-  { name: 'gender', label: 'Gender' },
-  { name: 'province', label: 'Province' },
-  { name: 'city', label: 'City' },
-  { name: 'car_company', label: 'Car Company' },
-  { name: 'car_name', label: 'Car Model' },
-  { name: 'car_color', label: 'Car Color' },
-  { name: 'car_year', label: 'Car Year' },
-  { name: 'mobile_number', label: 'Mobile Number' },
-  { name: 'postal_code', label: 'Postal Code' },
-]
+const labels = {
+  firstname: 'First Name',
+  lastname: 'Last Name',
+  email: 'Email Address',
+  username: 'Username',
+  password: 'Password',
+  gender: 'Gender',
+  province: 'Province',
+  city: 'City',
+  car_company: 'Car Company',
+  car_name: 'Car Model',
+  car_color: 'Car Color',
+  car_year: 'Car Year',
+  mobile_number: 'Mobile Number',
+  postal_code: 'Postal Code',
+}
 
 const filteredFields = computed(() => {
   const query = search.value.trim().toLowerCase()
 
-  return availableFields.filter((field) =>
-    field.name.includes(query) ||
-    field.label.toLowerCase().includes(query)
-  )
+  return props.fieldTypes
+    .filter((field) => field.name !== 'id')
+    .filter((field) => {
+      const label = labels[field.name] || field.name
+
+      return (
+        field.name.toLowerCase().includes(query) ||
+        label.toLowerCase().includes(query)
+      )
+    })
 })
 
 function selectField(field) {
   emit('addField', {
     id: crypto.randomUUID(),
     name: field.name,
-    type: field.label,
+    type: labels[field.name] || field.name,
     table_name: field.name,
   })
 
@@ -89,7 +101,8 @@ function selectField(field) {
           class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-gray-800 transition hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700"
           @click="selectField(field)"
         >
-          <span>{{ field.label }}</span>
+          <span>{{ labels[field.name] || field.name }}</span>
+
           <span class="text-xs text-gray-400">
             {{ field.name }}
           </span>
@@ -97,7 +110,7 @@ function selectField(field) {
 
         <p
           v-if="filteredFields.length === 0"
-          class="py-5 text-center text-sm text-gray-500"
+          class="py-5 text-center text-sm text-gray-500 dark:text-gray-400"
         >
           No matching field types found.
         </p>
