@@ -25,7 +25,7 @@
       <div class="p-3 border-t border-gray-200 dark:border-gray-700 text-center">
         <button
           @click="showAddModal = true"
-          class="w-full py-2 border border-dashed border-gray-400 text-black rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+          class="w-full py-2 border border-dashed border-gray-400 text-gray-800 dark:text-gray-100 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
         >
           + افزودن فیلد جدید
         </button>
@@ -35,14 +35,14 @@
     <div
       class="bg-white dark:bg-gray-800 rounded-lg shadow-md mt-6 p-4 border border-gray-200 dark:border-gray-700"
     >
-      <div class="grid md:grid-cols-3 gap-6 text-gray-700">
+      <div class="grid md:grid-cols-3 gap-6 text-gray-700 dark:text-gray-200">
         <div>
           <label class="block text-sm font-semibold mb-1">تعداد سطرها</label>
           <input
             type="number"
             v-model.number="rowCount"
             min="5"
-            class="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-transparent"
+            class="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-transparent text-gray-900 dark:text-white"
           />
         </div>
 
@@ -50,7 +50,7 @@
           <label class="block text-sm font-semibold mb-1">فرمت خروجی</label>
           <select
             v-model="format"
-            class="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-2 bg-transparent"
+            class="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-2 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
           >
             <option value="sql">SQL</option>
             <option value="json">JSON</option>
@@ -66,7 +66,7 @@
           <input
             type="text"
             v-model="fileName"
-            class="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-transparent"
+            class="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-transparent text-gray-900 dark:text-white"
           />
         </div>
       </div>
@@ -139,7 +139,7 @@ const generateData = async () => {
       format: format.value,
     }
 
-    const response = await axios.post('http://127.0.0.1:8001/generate/', payload, {
+    const response = await axios.post('http://127.0.0.1:8000/generate/', payload, {
       responseType: 'blob',
     })
 
