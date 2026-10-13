@@ -4,6 +4,7 @@ import draggable from 'vuedraggable'
 
 import FieldRow from './FieldRow.vue'
 import AddFieldModal from './AddFieldModal.vue'
+import DataPreview from './DataPreview.vue'
 
 import {
   fetchFieldTypes,
@@ -468,7 +469,7 @@ onMounted(loadFields)
         {{ errorMessage }}
       </p>
 
-      <div class="mt-6 flex flex-wrap gap-3">
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <button
           type="button"
           :disabled="isBusy || !!validationError"
@@ -486,57 +487,53 @@ onMounted(loadFields)
         >
           {{ loading ? 'Generating...' : 'Generate & Download' }}
         </button>
+
+        <div
+          v-if="isBusy"
+          role="status"
+          aria-live="polite"
+          class="mt-5 flex items-center gap-3 rounded-xl border border-teal-100 bg-teal-50 px-4 py-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950/40 dark:text-teal-200"
+        >
+          <svg
+            class="h-5 w-5 animate-spin"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              stroke-width="3"
+              opacity="0.2"
+            />
+            <path
+              d="M21 12a9 9 0 0 0-9-9"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+          </svg>
+
+          <span>
+            {{
+              previewLoading
+                ? 'Generating sample records...'
+                : 'Preparing your download...'
+            }}
+          </span>
+        </div>
       </div>
     </div>
 
     <!-- Data preview -->
-    <div
+    <DataPreview
       v-if="hasPreview"
-      class="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
-    >
-      <div class="border-b border-gray-200 p-4 dark:border-gray-700">
-        <h3 class="font-semibold text-gray-900 dark:text-white">
-          Data preview
-        </h3>
-
-        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Up to 5 sample rows. Download generates fresh random data.
-        </p>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full min-w-max text-left text-sm">
-          <thead class="bg-gray-100 dark:bg-gray-700">
-            <tr>
-              <th
-                v-for="column in previewColumns"
-                :key="column"
-                class="border-b border-gray-200 px-4 py-3 font-semibold text-gray-700 dark:border-gray-600 dark:text-gray-200"
-              >
-                {{ column }}
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr
-              v-for="(row, index) in previewRows"
-              :key="index"
-              class="border-b border-gray-100 dark:border-gray-700"
-            >
-              <td
-                v-for="column in previewColumns"
-                :key="column"
-                class="max-w-xs truncate px-4 py-3 text-gray-800 dark:text-gray-200"
-                :title="String(row[column] ?? '')"
-              >
-                {{ row[column] ?? '' }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      :rows="previewRows"
+      :columns="previewColumns"
+    />
 
     <AddFieldModal
       v-if="showAddModal"
