@@ -285,15 +285,25 @@ onMounted(loadFields)
 </script>
 
 <template>
-  <section class="mx-auto mt-8 w-full max-w-5xl px-4 pb-12">
+  <section class="mx-auto mt-8 w-full max-w-6xl pb-12 sm:mt-10">
 
-    <div class="mb-6">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-        Data Generator
+    <div class="mb-8">
+      <div
+        class="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-300"
+      >
+        <span class="h-2 w-2 rounded-full bg-teal-500"></span>
+        DATA WORKSPACE
+      </div>
+
+      <h2
+        class="text-3xl font-extrabold tracking-tight text-[#102438] dark:text-white sm:text-4xl"
+      >
+        Build your dataset<span class="text-[#147D74] dark:text-[#72E0C4]">.</span>
       </h2>
 
-      <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-        Build a schema and generate realistic Persian synthetic data.
+      <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-400 sm:text-base">
+        Design your schema, preview sample records, and export
+        realistic Persian synthetic data in your preferred format.
       </p>
     </div>
 
@@ -302,7 +312,7 @@ onMounted(loadFields)
       class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
     >
       <div
-        class="grid grid-cols-[36px_minmax(0,1fr)_minmax(0,1fr)_36px] gap-2 bg-gray-100 px-3 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-200"
+        class="grid grid-cols-[28px_minmax(0,1fr)_minmax(0,1fr)_32px] gap-2 bg-slate-50 px-3 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:grid-cols-[36px_minmax(0,1fr)_minmax(0,1fr)_36px] dark:bg-slate-700/70 dark:text-slate-200"
       >
         <span></span>
         <span>Column name</span>
@@ -462,7 +472,7 @@ onMounted(loadFields)
         <button
           type="button"
           :disabled="isBusy || !!validationError"
-          class="rounded-lg border border-gray-300 px-5 py-2.5 font-medium text-gray-800 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
+          class="rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
           @click="showPreview"
         >
           {{ previewLoading ? 'Loading preview...' : 'Preview data' }}
@@ -471,7 +481,7 @@ onMounted(loadFields)
         <button
           type="button"
           :disabled="isBusy || !!validationError"
-          class="rounded-lg bg-green-600 px-5 py-2.5 font-medium text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+          class="rounded-xl bg-[#147D74] px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-[#10675F] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
           @click="generateData"
         >
           {{ loading ? 'Generating...' : 'Generate & Download' }}

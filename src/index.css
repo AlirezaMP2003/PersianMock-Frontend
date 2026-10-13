@@ -3,13 +3,17 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  font-family: Inter, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  color: #102438;
+  background-color: #f3f6f8;
 }
 
 html {
@@ -40,4 +44,109 @@ button {
 
 button:disabled {
   cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #147d74;
+  outline-offset: 2px;
+}
+
+.app-shell {
+  background:
+    radial-gradient(
+      ellipse 60% 380px at 50% 0,
+      rgba(20, 125, 116, 0.065),
+      transparent 75%
+    ),
+    #f3f6f8;
+
+  color: #102438;
+  transition: background-color 250ms ease,
+              color 250ms ease;
+}
+
+.app-header {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #e2e9ee;
+  backdrop-filter: blur(16px);
+}
+
+.app-footer {
+  color: #64748b;
+  border-top: 1px solid #e2e9ee;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid #dbe4ea;
+  background: #ffffff;
+  color: #334155;
+  transition: background 180ms ease,
+              border-color 180ms ease,
+              transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.theme-toggle:active {
+  transform: scale(0.96);
+}
+
+.dark :root,
+html.dark {
+  color-scheme: dark;
+}
+
+.dark .app-shell {
+  background:
+    radial-gradient(
+      ellipse 65% 420px at 50% 0,
+      rgba(45, 184, 157, 0.08),
+      transparent 75%
+    ),
+    #0c1623;
+
+  color: #e2e8f0;
+}
+
+.dark .app-header {
+  background: rgba(17, 30, 45, 0.94);
+  border-bottom-color: #26394a;
+}
+
+.dark .app-footer {
+  color: #94a3b8;
+  border-top-color: #26394a;
+}
+
+.dark .theme-toggle {
+  background: #1b2b3c;
+  color: #e2e8f0;
+  border-color: #33485b;
+}
+
+.dark .theme-toggle:hover {
+  background: #263a4d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
