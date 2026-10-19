@@ -6,6 +6,10 @@ This repository is the **frontend** for PersianMock. The FastAPI backend, Postgr
 
 > **Status:** Portfolio/MVP project. Start the backend locally before using API-powered features.
 
+## Preview
+
+![PersianMock Schema Builder](./src/assets/persianmock.png)
+
 ## Features
 
 - Schema builder with add/remove, editable column names, and drag-and-drop ordering
